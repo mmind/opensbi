@@ -25,10 +25,12 @@
 
 extern const struct platform_override sifive_fu540;
 extern const struct platform_override sifive_fu740;
+extern const struct platform_override thead_c9xx;
 
 static const struct platform_override *special_platforms[] = {
 	&sifive_fu540,
 	&sifive_fu740,
+	&thead_c9xx,
 };
 
 static const struct platform_override *generic_plat = NULL;
