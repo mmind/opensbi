@@ -209,7 +209,20 @@ static uint64_t generic_pmu_xlate_to_mhpmevent(uint32_t event_idx,
 	return evt_val;
 }
 
+static int generic_vendor_ext_provider(long extid, long funcid,
+				       const struct sbi_trap_regs *regs,
+				       unsigned long *out_value,
+				       struct sbi_trap_info *out_trap)
+{
+	if (generic_plat && generic_plat->vendor_ext_provider)
+		return generic_plat->vendor_ext_provider(extid, funcid, regs,
+							 out_value, out_trap);
+
+	return SBI_ENOTSUPP;
+}
+
 const struct sbi_platform_operations platform_ops = {
+	.vendor_ext_provider	= generic_vendor_ext_provider,
 	.early_init		= generic_early_init,
 	.final_init		= generic_final_init,
 	.early_exit		= generic_early_exit,
